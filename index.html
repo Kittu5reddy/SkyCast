@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="weather-app">
+        <div class="search-box">
+          <input id="place" type="text" placeholder="Enter city name" />
+          <button onclick="updateWeather()">Search</button>
+        </div>
+
+        <div class="weather-info">
+          <div class="city">New York, US</div>
+          <div class="date">Monday, March 17, 2025</div>
+
+          <div class="temp-icon">
+            <div class="temp">72°F</div>
+            <div class="weather-icon">☀️</div>
+          </div>
+
+          <div class="description">Sunny</div>
+
+          <div class="details">
+            <div class="col">
+              <div class="detail-label">Humidity</div>
+              <div class="detail-value">45%</div>
+            </div>
+            <div class="col">
+              <div class="detail-label">Wind</div>
+              <div class="detail-value">8 mph</div>
+            </div>
+            <div class="col">
+              <div class="detail-label">Feels Like</div>
+              <div id="temperater" class="detail-value">75°F</div>
+            </div>
+          </div>
+
+          <div class="forecast">
+            <div class="forecast-day">
+              <div class="forecast-date">Tue</div>
+              <div class="forecast-icon">⛅</div>
+              <div class="forecast-temp">70°F</div>
+            </div>
+            <div class="forecast-day">
+              <div class="forecast-date">Wed</div>
+              <div class="forecast-icon">🌧️</div>
+              <div class="forecast-temp">65°F</div>
+            </div>
+            <div class="forecast-day">
+              <div class="forecast-date">Thu</div>
+              <div class="forecast-icon">🌧️</div>
+              <div class="forecast-temp">62°F</div>
+            </div>
+            <div class="forecast-day">
+              <div class="forecast-date">Fri</div>
+              <div class="forecast-icon">⛅</div>
+              <div class="forecast-temp">68°F</div>
+            </div>
+            <div class="forecast-day">
+              <div class="forecast-date">Sat</div>
+              <div class="forecast-icon">☀️</div>
+              <div class="forecast-temp">73°F</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function updateWeather() {
+        let place = document.getElementById("place").value;
+
+        fetch(
+          `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${place}?unitGroup=us&key=SZKBJ3FB3Z25WXYU3VV32ESUL&contentType=json`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            const today = data.days[0];
+
+            document.querySelector(".city").textContent =
+              data.resolvedAddress || place;
+            document.querySelector(".date").textContent = today.datetime;
+
+            let avgTemp = Math.round((today.tempmax + today.tempmin) / 2);
+            document.querySelector(".temp").textContent = avgTemp + "°F";
+
+            document.querySelector(".description").textContent =
+              today.conditions || "Clear";
+
+            const detailCols = document.querySelectorAll(".details .col");
+            if (detailCols.length >= 3) {
+              detailCols[0].querySelector(".detail-value").textContent =
+                today.humidity + "%";
+
+              detailCols[1].querySelector(".detail-value").textContent =
+                today.windspeed + " mph";
+
+              detailCols[2].querySelector(".detail-value").textContent =
+                today.feelslike + "°F";
+            }
+          })
+          .catch((err) => console.error("Error fetching weather data:", err));
+      }
+    </script>
+  </body>
+</html>
