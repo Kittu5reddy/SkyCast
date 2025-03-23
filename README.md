@@ -33,6 +33,12 @@ SkyCast is a weather forecasting application that provides accurate and up-to-da
 - `style.css`: The CSS file for styling the application.
 - `script.js`: The JavaScript file for fetching and displaying weather data.
 
+## images
+
+![img1](./img/Screenshot%202025-03-24%20051111.png)
+![img2](./img/33.png)
+![img2](./img/34.png)
+
 ## Contributing
 
 Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
