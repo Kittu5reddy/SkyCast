@@ -41,8 +41,4 @@ SkyCast is a weather forecasting application that provides accurate and up-to-da
 
 ## Contributing
 
-Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Contributions are welcome!
